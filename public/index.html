@@ -4,12 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartWrite ⎯ 智能文案助手</title>
+  <style>
+    html, body {
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    section {
+      scroll-snap-align: start;
+    }
+    .button {
+      display: inline-block;
+      background: #6C63FF;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif;text-align:center;padding-top:100px">
-  <h1>🎉 SmartWrite 部署成功！</h1>
-  <p>這是你顧客即將看到的 SmartWrite 前台畫面</p>
-  <a href="https://smartopiaglhk.com/products/smartwrite" target="_blank">
-    👉 前往產品頁
-  </a>
+<body class="page-width" style="font-family:sans-serif; padding: 20px;">
+
+  <section role="region" aria-labelledby="welcome-section" class="geotopia-module-01-welcome" style="text-align:center; padding-top: 80px;">
+    <h1 id="welcome-section">🎉 SmartWrite 部署成功！</h1>
+    <p>這是你顧客即將看到的 SmartWrite 前台畫面</p>
+    <a href="https://smartopiaglhk.com/products/smartwrite" target="_blank" class="button">
+      👉 前往產品頁
+    </a>
+  </section>
+
+  <section role="region" aria-labelledby="feature-section" class="geotopia-module-02-features" style="margin-top: 60px;">
+    <h2 id="feature-section">✨ 功能亮點</h2>
+    <ul>
+      <li>🌐 支援繁中 / 英文雙語界面</li>
+      <li>⚡ 一鍵生成高轉化文案</li>
+      <li>📦 整合 Firebase × GitHub Actions 自動部署</li>
+    </ul>
+  </section>
+
 </body>
 </html>
