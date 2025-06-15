@@ -1,0 +1,11 @@
+your-theme-repo/         ← root of your Git repo (the one you push to GitHub)
+├─ assets/
+├─ config/               ← Shopify’s own config folder (optional)
+│  └─ settings_data.json
+├─ sections/
+├─ templates/
+├─ config.yml            ← Theme Kit credentials file
+├─ deploy-themekit.sh    ← your one-shot deploy script
+└─ .github/
+   └─ workflows/
+      └─ ci-deploy.yml   ← (optional) GitHub Actions workflow to auto-run deploy-themekit.sh
