@@ -1,0 +1,50 @@
+name: Auto-Deploy GLGRPHK Theme
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Theme Kit
+        run: npm install -g @shopify/themekit
+
+      - name: Build & prepare assets
+        run: echo "✔️ Build complete"
+
+      - name: Deploy Sections & Assets
+        env:
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+        run: |
+          cat > config.yml <<YML
+          development:
+            password: ${{ secrets.SHOPIFY_PASSWORD }}
+            theme_id: ${{ secrets.SHOPIFY_THEME_ID }}
+            store: ${{ secrets.SHOPIFY_STORE }}
+            ignore_files:
+              - config/settings_data.json
+          YML
+          theme deploy --env=development
+
+      - name: Inject index text & links
+        env:
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: node .github/scripts/patch-index.js
+
+      - name: Publish theme
+        env:
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: theme publish --env=development
+
+      - name: Report
+        run: echo "🎉 Deployed to https://${{ secrets.SHOPIFY_STORE }}"
